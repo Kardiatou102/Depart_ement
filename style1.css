@@ -1,0 +1,196 @@
+/* --- RESET --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+/* --- NAVIGATION --- */
+header {
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0077b6;
+}
+
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #222;
+  transition: 0.3s;
+}
+
+nav a:hover,
+.active {
+  color: #0077b6;
+  font-weight: 600;
+}
+
+/* --- SECTION HERO --- */
+.hero {
+  height: 100vh;
+  background: url("map-france-light.png") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 0 1rem;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.content h2 {
+  font-size: 2.3rem;
+  margin-bottom: 1rem;
+}
+
+.content p {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+/* --- BOUTONS --- */
+.buttons {
+ margin-left : 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn {
+  background: #0077b6;
+  color: white;
+  text-decoration: none;
+  padding: 0.9rem 2.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 0 #005f8e;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background: #0096c7;
+  transform: translateY(-2px);
+}
+
+/* --- RESPONSIVE --- */
+@media (min-width: 768px) {
+  .buttons {
+    flex-direction: row;
+  }
+
+  .btn {
+    margin: 0 0.5rem;
+  }
+
+  .content h1 {
+    font-size: 3rem;
+  }
+}
+
+/* --- PAGE CARTE --- */
+.carte-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  padding-top: 100px; /* espace pour le header */
+}
+
+.carte-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+/* Boîte bleue de texte */
+.info-box {
+  background: #0077b6;
+  color: #fff;
+  font-weight: 800;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 0 #005f8e;
+  max-width: 380px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Carte de France */
+.map-box img {
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Overlay gris clair */
+.carte-section .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .map-box img {
+    width: 350px;
+  }
+}
+
+@media (max-width: 600px) {
+  .carte-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+
