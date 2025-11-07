@@ -115,6 +115,20 @@ nav a:hover,
   transform: translateY(-2px);
 }
 
+/* Footer */
+footer {
+  background: white;
+  color: #666;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+}
+
+footer p {
+  font-size: 0.9rem;
+}
+
 /* --- RESPONSIVE --- */
 @media (min-width: 768px) {
   .buttons {
