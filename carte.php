@@ -11,7 +11,7 @@
     <nav>
       <h1 class="logo">Départ(ement)</h1>
       <ul>
-        <li><a href="accueil.html">Accueil</a></li>
+        <li><a href="accueil.php">Accueil</a></li>
         <li class="active">Carte</li>
         <li><a href="apropos.html">À propos</a></li>
         <li><a href="contact.html">Contact</a></li>
