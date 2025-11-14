@@ -12,7 +12,7 @@
       <h1 class="logo">Départ(ement)</h1>
       <ul>
         <li class="active">Accueil </li>
-        <li><a href="carte.html">Carte</a></li>
+        <li><a href="carte.php">Carte</a></li>
         <li><a href="apropos.html">À propos</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
