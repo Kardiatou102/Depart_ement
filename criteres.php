@@ -61,13 +61,18 @@ $criteres_disponibles = [
 
 // Traitement de la recherche
 if (!empty($_GET['critere'])) {
+	if (isset($_GET['order']) && in_array($_GET['order'], ['ASC', 'DESC'])) {
+	$ordre = $_GET['order'];
+	}
+	elseif ($criteres_disponibles[$critere_recherche]['inverse']){
+		$ordre = 'ASC';
+	} else {
+		$ordre = 'DESC';
+	}
     $recherche_effectuee = true;
     $critere_recherche = $_GET['critere'];
     
-    // Déterminer l'ordre (pour certains critères, on veut les valeurs les plus basses)
-    if (isset($criteres_disponibles[$critere_recherche]) && $criteres_disponibles[$critere_recherche]['inverse']) {
-        $ordre = 'ASC';
-    }
+
     
     try {
         $pdo = getBD();
@@ -136,7 +141,7 @@ try {
         <h1 class="logo">Départ(ement)</h1>
         <ul>
             <li class="active">Accueil </li>
-            <li><a href="carte.html">Carte</a></li>
+            <li><a href="carte.php">Carte</a></li>
             <li><a href="apropos.html">À propos</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -174,7 +179,13 @@ try {
                     </h2>
                     <p class="resultats-subtitle">
                         <?= count($resultats) ?> départements trouvés • 
-                        Triés par <?= ($ordre === 'ASC') ? 'valeur croissante' : 'valeur décroissante' ?>
+                        Triés par <form method="GET" class="tri-form">
+    						<input type="hidden" name="critere" value="<?= $critere_recherche ?>">
+    							<select name="order" id="order" onchange="this.form.submit()">
+        							<option value="DESC" <?= ($ordre === 'DESC' ? 'selected' : '') ?>>Décroissant</option>
+        							<option value="ASC"  <?= ($ordre === 'ASC'  ? 'selected' : '') ?>>Croissant</option>
+    							</select>
+							</form>
                     </p>
                 </div>
 
