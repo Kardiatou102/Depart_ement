@@ -2,7 +2,7 @@
 function getBD(){
     // Configurazioni per diversi ambienti
     $configs = [
-        // MAMP (macOS) - prova prima questo
+        // MAMP (macOS) 
         [
             'host' => 'localhost',
             'port' => '8889', // Porta predefinita MAMP
