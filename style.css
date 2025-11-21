@@ -1,8 +1,3 @@
-/* =================================
-   STYLE.CSS - CSS UNIFICATO
-   Départ(ement) - 2025
-   ================================= */
-
 /* --- RESET & BASE --- */
 * {
   margin: 0;
@@ -180,27 +175,7 @@ nav .active {
 }
 
 /* --- PAGE CARTE --- */
-.carte-section {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  text-align: center;
-  padding-top: 100px;
-  background: url("img/carte.jpg") center/cover no-repeat;
-}
 
-.carte-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem;
-  flex-wrap: wrap;
-  padding: 2rem;
-}
 
 .info-box {
   background: #0077b6;
@@ -215,16 +190,30 @@ nav .active {
   text-align: center;
 }
 
-.map-box img {
-  width: 350px;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s;
+
+/*  Carte interactive  */
+#map {
+  width: 70%;
+  height: 450px;
+  margin: auto;
+  border-radius: 10px;
 }
 
-.map-box img:hover {
-  transform: scale(1.05);
+
+
+/* La section carte peut garder son image de fond (facultatif) */
+.carte-section {
+  padding-top: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.carte-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 /* --- PAGE CRITÈRES --- */
@@ -746,4 +735,39 @@ footer p {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/*Panel latéral pour les détails dans chaque département */
+
+.side-panel {
+  position: fixed;
+  top: 0;
+  right: -350px;        /* caché par défaut */
+  width: 350px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+  padding: 20px;
+  transition: right 0.3s ease;
+  z-index: 2000;        /* au-dessus de la carte */
+  overflow-y: auto;
+}
+
+.side-panel.open {
+  right: 0;             /* visible */
+}
+
+#close-panel {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 22px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+#panel-content {
+  margin-top: 40px;
+  text-align: left;
 }
