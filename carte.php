@@ -133,5 +133,9 @@ function showPanel(data) {
 
 </script>
 
+<footer>
+        <p>&copy; 2025 Départ(ement). Tous droits réservés. | Projet réalisé par des étudiantes de l'Université Paul Valéry</p>
+</footer>
+
 </body>
 </html>
