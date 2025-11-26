@@ -56,11 +56,19 @@ $criteres_disponibles = [
         'description' => 'Départements les plus peuplés',
         'unite' => ' hab.',
         'inverse' => false
+    ],
+    'uni' => [
+    	'label' => 'Etablissement supérieur',
+    	'icon' => '🎓',
+    	'description' => 'Universités et écoles supérieurs',
+    	'unite' => '',
+    	'inverse' => false
     ]
 ];
 
 // Traitement de la recherche
 if (!empty($_GET['critere'])) {
+	$critere_recherche = $_GET['critere'];
 	if (isset($_GET['order']) && in_array($_GET['order'], ['ASC', 'DESC'])) {
 	$ordre = $_GET['order'];
 	}
@@ -94,6 +102,10 @@ if (!empty($_GET['critere'])) {
                 $colonne = "l.taux_log_sociaux";
                 $table_join = "LEFT JOIN logement l ON d.code_dep = l.code_dep";
                 break;
+            case 'uni':
+            	$colonne = "COUNT(u.id_eta_sup)";
+            	$table_join = "LEFT JOIN universite u ON d.code_dep = u.cede_dep";
+            	break;
         }
         
         if ($colonne) {
@@ -103,6 +115,7 @@ if (!empty($_GET['critere'])) {
                     LEFT JOIN region r ON d.code_region = r.code_region
                     $table_join
                     WHERE $colonne IS NOT NULL
+                    GROUP BY d.code_dep
                     ORDER BY valeur $ordre
                     LIMIT 30";
             
@@ -140,7 +153,7 @@ try {
         <nav>
         <h1 class="logo">Départ(ement)</h1>
         <ul>
-            <li class="active">Accueil </li>
+            <li><a href="accueil.php">Accueil</a></li>
             <li><a href="carte.php">Carte</a></li>
             <li><a href="apropos.html">À propos</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -205,6 +218,8 @@ try {
                                         $valeur = $dept['valeur'];
                                         if ($critere_recherche === 'nbr_hab') {
                                             echo number_format($valeur, 0, ',', ' ');
+                                        } elseif ($critere_recherche === 'uni') {
+                                        	echo $valeur . ' établissements';
                                         } else {
                                             echo number_format($valeur, 1, ',', ' ');
                                         }
