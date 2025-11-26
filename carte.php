@@ -53,9 +53,9 @@
 
 
 <script>
-// ---------------------------------------
+
 // INITIALISATION DE LA CARTE LEAFLET
-// ---------------------------------------
+
 var map = L.map('map', {
     minZoom: 5,
     maxZoom: 12,
@@ -68,9 +68,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
   noWrap: true
 }).addTo(map);
 
-// ---------------------------------------
-// CHARGE LE GEOJSON LOCAL
-// ---------------------------------------
+
+// chrge du fichier geojson localement
+
 $.getJSON('data/departements.geojson', function (geojson) {
 
   L.geoJSON(geojson, {
@@ -115,9 +115,9 @@ $.getJSON('data/departements.geojson', function (geojson) {
 
 });
 
-// ---------------------------------------
+
 // PANEL LATÉRAL
-// ---------------------------------------
+
 const panel = document.getElementById('side-panel');
 const content = document.getElementById('panel-content');
 const closeBtn = document.getElementById('close-panel');
