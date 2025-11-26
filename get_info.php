@@ -1,56 +1,52 @@
 <?php
+// Debug pour voir les erreurs
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
+
+require_once "bd.php";
+$conn = getBD();
+
 if (!isset($_POST['code_dep'])) {
-    echo "<p>Code département absent.</p>";
+    echo "<p>Code département manquant.</p>";
     exit;
 }
 
 $code_dep = $_POST['code_dep'];
 
 try {
-    $conn = new PDO('mysql:host=localhost;dbname=depart_ement;charset=utf8', 'root', 'root');
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // ==========================
-    // TABLE : departement
-    // ==========================
-    $dep = $conn->prepare("SELECT * FROM departement WHERE code_dep = ?");
-    $dep->execute([$code_dep]);
-    $d = $dep->fetch();
+    // --- TABLE departement ---
+    $q = $conn->prepare("SELECT * FROM departement WHERE code_dep = ?");
+    $q->execute([$code_dep]);
+    $d = $q->fetch();
 
     if (!$d) {
-        echo "<p>Aucune donnée trouvée pour le département $code_dep.</p>";
+        echo "<p>Aucune donnée trouvée pour ce département.</p>";
         exit;
     }
 
-    // ==========================
-    // TABLE : logement
-    // ==========================
-    $log = $conn->prepare("SELECT * FROM logement WHERE code_dep = ?");
-    $log->execute([$code_dep]);
-    $l = $log->fetch();
+    // --- TABLE logement ---
+    $q = $conn->prepare("SELECT * FROM logement WHERE code_dep = ?");
+    $q->execute([$code_dep]);
+    $l = $q->fetch();
 
-    // ==========================
-    // TABLE : etablissement
-    // ==========================
-    $eta = $conn->prepare("SELECT * FROM etablissement WHERE code_dep = ?");
-    $eta->execute([$code_dep]);
-    $e = $eta->fetch();
+    // --- TABLE etablissement ---
+    $q = $conn->prepare("SELECT * FROM etablissement WHERE code_dep = ?");
+    $q->execute([$code_dep]);
+    $e = $q->fetch();
 
-    // ==========================
-    // TABLE : eta_superieur
-    // ==========================
-    $sup = $conn->prepare("SELECT COUNT(*) FROM eta_superieur WHERE code_dep = ?");
-    $sup->execute([$code_dep]);
-    $nbr_sup = $sup->fetchColumn();
+    // --- TABLE eta_superieur ---
+    $q = $conn->prepare("SELECT COUNT(*) FROM eta_superieur WHERE code_dep = ?");
+    $q->execute([$code_dep]);
+    $nbr_sup = $q->fetchColumn();
 
-} catch (Exception $e) {
-    echo "<p>Erreur : " . $e->getMessage() . "</p>";
+} catch (PDOException $ex) {
+    echo "<p>Erreur SQL : " . $ex->getMessage() . "</p>";
     exit;
 }
-
 ?>
 
-<h2><?= $d['nom_dep'] ?></h2>
+<h2><?= htmlspecialchars($d['nom_dep']) ?></h2>
 
 <p><strong>Population :</strong> <?= $d['nbr_hab'] ?> habitants</p>
 <p><strong>Densité :</strong> <?= $d['densite'] ?> hab/km²</p>
@@ -58,13 +54,18 @@ try {
 <p><strong>Taux de pauvreté :</strong> <?= $d['taux_pauvrete'] ?>%</p>
 
 <?php if ($l): ?>
-<p><strong>Logements :</strong> <?= $l['nbr_log'] ?>  
- (sociaux : <?= $l['taux_log_sociaux'] ?>%, individuels : <?= $l['taux_log_ind'] ?>%)</p>
+    <p><strong>Logements :</strong>  
+        <?= $l['nbr_log'] ?> logements  
+        (sociaux : <?= $l['taux_log_sociaux'] ?>%,  
+         individuels : <?= $l['taux_log_ind'] ?>%)
+    </p>
 <?php endif; ?>
 
 <?php if ($e): ?>
-<p><strong>Établissements culturels :</strong>  
-   <?= $e['nbr_t_eta'] ?> (dont <?= $e['nbr_eta_2018'] ?> en 2018)</p>
+    <p><strong>Établissements culturels :</strong>
+        <?= $e['nbr_t_eta'] ?>  
+        (dont <?= $e['nbr_eta_2018'] ?> en 2018)
+    </p>
 <?php endif; ?>
 
 <p><strong>Établissements supérieurs :</strong> <?= $nbr_sup ?></p>
