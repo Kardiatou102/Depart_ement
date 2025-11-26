@@ -32,10 +32,10 @@
       </div>
     </section>
   </main>
-  <footer>
-        <footer>
+
+    <footer>
         <p>&copy; 2025 Départ(ement). Tous droits réservés. | Projet réalisé par des étudiantes de l'Université Paul Valéry</p>
     </footer>
-    </footer>
+   
 </body>
 </html>
