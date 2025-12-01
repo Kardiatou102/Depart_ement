@@ -89,24 +89,24 @@ if (!empty($_GET['critere'])) {
         $colonne = '';
         $table_join = '';
         
-        switch($critere_recherche) {
-            case 'taux_chomage':
-            case 'taux_pauvrete':
-            case 'densite':
-            case 'pourcpopvingt':
-            case 'pourcpopsoixante':
-            case 'nbr_hab':
-                $colonne = "d." . $critere_recherche;
-                break;
-            case 'taux_log_sociaux':
-                $colonne = "l.taux_log_sociaux";
-                $table_join = "LEFT JOIN logement l ON d.code_dep = l.code_dep";
-                break;
-            case 'uni':
-            	$colonne = "COUNT(u.id_eta_sup)";
-            	$table_join = "LEFT JOIN universite u ON d.code_dep = u.cede_dep";
-            	break;
-        }
+			switch($critere_recherche) {
+    			case 'taux_chomage':
+    			case 'taux_pauvrete':
+    			case 'densite':
+    			case 'pourcpopvingt':
+    			case 'pourcpopsoixante':
+    			case 'nbr_hab':
+   			     $colonne = "d." . $critere_recherche;
+        			break;
+    			case 'taux_log_sociaux':
+        			$colonne = "l.taux_log_sociaux";
+        			$table_join = "LEFT JOIN logement l ON d.code_dep = l.code_dep";
+        			break;
+    			case 'uni':
+        			$colonne = "u.nbr_t_eta";
+        			$table_join = "LEFT JOIN etablissement u ON d.code_dep = u.code_dep"; // ✅ Correction ici
+        			break;
+			}
         
         if ($colonne) {
             $sql = "SELECT d.code_dep, d.nom_dep, r.nom_region, $colonne as valeur,
@@ -114,8 +114,7 @@ if (!empty($_GET['critere'])) {
                     FROM departement d
                     LEFT JOIN region r ON d.code_region = r.code_region
                     $table_join
-                    WHERE $colonne IS NOT NULL
-                    GROUP BY d.code_dep
+                    WHERE $colonne IS NOT NULL AND $colonne > 0
                     ORDER BY valeur $ordre
                     LIMIT 30";
             
