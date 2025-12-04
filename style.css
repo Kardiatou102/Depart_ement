@@ -6,14 +6,24 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* Palette globale */
+:root {
+  --primary: #0077b6;
+  --primary-light: #e6f0ff;
+  --text-main: #1f2933;
+  --text-muted: #6b7280;
+  --card-bg: #ffffff;
+  --border-soft: #e5e7eb;
+}
+
 body {
   background: #f8fafc;
-  color: #1e293b;
+  color: var(--text-main);
   line-height: 1.6;
 }
 
 /* --- NAVIGATION --- */
-/* Header con logo e menu (per accueil, carte, criteres) */
+/* Header avec logo et menu (accueil, carte, criteres) */
 header {
   background: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -32,7 +42,7 @@ header nav {
   align-items: center;
 }
 
-/* Nav semplice per apropos e contact (senza header) */
+/* Nav simple pour apropos et contact (sans header) */
 body > nav {
   background: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -55,7 +65,7 @@ body > nav ul {
 .logo {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #0077b6;
+  color: var(--primary);
   margin: 0;
 }
 
@@ -80,7 +90,7 @@ nav a {
 
 nav a:hover,
 nav .active {
-  color: #0077b6;
+  color: var(--primary);
   font-weight: 600;
 }
 
@@ -112,14 +122,14 @@ nav .active {
 .content h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: #0077b6;
+  color: var(--primary);
   font-weight: 700;
 }
 
 .content h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #0077b6;
+  color: var(--primary);
 }
 
 .content p {
@@ -139,7 +149,7 @@ nav .active {
 }
 
 .btn {
-  background: #0077b6;
+  background: var(--primary);
   color: white;
   text-decoration: none;
   padding: 1rem 2.5rem;
@@ -177,7 +187,7 @@ nav .active {
 /* --- PAGE CARTE --- */
 
 .info-box {
-  background: #0077b6;
+  background: var(--primary);
   color: #fff;
   font-weight: 600;
   font-size: 1.2rem;
@@ -197,7 +207,7 @@ nav .active {
   border-radius: 10px;
 }
 
-/* La section carte peut garder son image de fond (facultatif) */
+/* La section carte */
 .carte-section {
   padding-top: 120px;
   display: flex;
@@ -237,7 +247,7 @@ nav .active {
 
 .criteres-content h1 {
   font-size: 2.8rem;
-  color: #0077b6;
+  color: var(--primary);
   margin-bottom: 1rem;
   font-weight: 700;
 }
@@ -270,7 +280,7 @@ nav .active {
 .critere-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 30px rgba(0, 119, 182, 0.2);
-  border-color: #0077b6;
+  border-color: var(--primary);
 }
 
 .critere-card.active {
@@ -317,7 +327,7 @@ nav .active {
 
 .resultats-header h2 {
   font-size: 2.2rem;
-  color: #0077b6;
+  color: var(--primary);
   margin-bottom: 0.5rem;
 }
 
@@ -357,13 +367,13 @@ nav .active {
 .resultat-item:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(0, 119, 182, 0.15);
-  border-left: 4px solid #0077b6;
+  border-left: 4px solid var(--primary);
 }
 
 .resultat-rank {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #0077b6;
+  color: var(--primary);
   min-width: 60px;
   text-align: center;
 }
@@ -401,7 +411,7 @@ nav .active {
 .stat-value-big {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #0077b6;
+  color: var(--primary);
 }
 
 .stats-secondaires {
@@ -446,7 +456,7 @@ nav .active {
 }
 
 .no-results h2 {
-  color: #0077b6;
+  color: var(--primary);
   font-size: 2rem;
   margin-bottom: 1rem;
 }
@@ -461,10 +471,10 @@ nav .active {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  padding-top: 100px; /* Spazio per la nav fixed */
+  padding-top: 100px;
 }
 
-/* Hero per apropos e contact */
+/* Hero apropos / contact */
 .container .hero {
   height: auto;
   min-height: 300px;
@@ -480,7 +490,7 @@ nav .active {
   position: relative;
 }
 
-/* Rimuovi overlay per hero di apropos/contact */
+/* Pas d’overlay pour ces pages */
 .container .hero .overlay {
   display: none;
 }
@@ -502,7 +512,7 @@ nav .active {
   max-width: 700px;
 }
 
-/* Content box per apropos e contact */
+/* Content box apropos / contact */
 .container .content {
   background: white;
   padding: 2.5rem;
@@ -514,7 +524,7 @@ nav .active {
 }
 
 .container .content h2 {
-  color: #0077b6;
+  color: var(--primary);
   font-size: 1.8rem;
   margin-bottom: 1rem;
 }
@@ -544,13 +554,13 @@ nav .active {
 }
 
 .contact-info:hover {
-  border-color: #0077b6;
+  border-color: var(--primary);
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 119, 182, 0.15);
 }
 
 .contact-info h3 {
-  color: #0077b6;
+  color: var(--primary);
   margin-bottom: 1rem;
   font-size: 1.3rem;
 }
@@ -578,7 +588,6 @@ footer p {
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-  /* Navigation responsive */
   header nav {
     flex-direction: column;
     gap: 1rem;
@@ -595,7 +604,6 @@ footer p {
     justify-content: center;
   }
 
-  /* Content responsive */
   .content h1 {
     font-size: 2rem;
   }
@@ -608,7 +616,6 @@ footer p {
     font-size: 1rem;
   }
 
-  /* Buttons responsive */
   .buttons {
     flex-direction: column;
     width: 100%;
@@ -619,7 +626,6 @@ footer p {
     text-align: center;
   }
 
-  /* Carte responsive */
   .carte-content {
     flex-direction: column;
     gap: 2rem;
@@ -630,7 +636,6 @@ footer p {
     max-width: 350px;
   }
 
-  /* Critères responsive */
   .criteres-grid {
     grid-template-columns: 1fr;
   }
@@ -653,12 +658,10 @@ footer p {
     flex-direction: column;
   }
 
-  /* Contact responsive */
   .contact-grid {
     grid-template-columns: 1fr;
   }
 
-  /* Container responsive */
   .container {
     padding: 1rem;
     padding-top: 80px;
@@ -721,7 +724,7 @@ footer p {
 .mb-2 { margin-bottom: 2rem; }
 .mb-3 { margin-bottom: 3rem; }
 
-/* Animation pour l'apparition au scroll */
+/* Animation apparition au scroll */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -738,70 +741,69 @@ footer p {
 .side-panel {
   position: fixed;
   top: 0;
-  right: -420px;          /* caché par défaut */
+  right: -420px;
   width: 400px;
   max-width: 100%;
   height: 100vh;
-  background: #e4f1ff;    /* bleu clair */
+  background: #cfe1ff; /* bleu un peu plus foncé que e4f1ff */
   box-shadow: -8px 0 24px rgba(15, 23, 42, 0.18);
   padding: 24px 24px 32px;
   transition: right 0.3s ease;
-  z-index: 2000;          /* au-dessus de la carte */
+  z-index: 2000;
   overflow-y: auto;
   border-radius: 24px 0 0 24px;
 }
 
+/* État ouvert */
 .side-panel.open {
-  right: 0;               /* visible */
+  right: 0;
 }
 
+/* Bouton de fermeture */
 #close-panel {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 14px;
+  left: 14px;
   font-size: 22px;
   border: none;
-  background: none;
+  background: transparent;
   cursor: pointer;
-  color: #475569;
+  color: #0f172a;
   transition: transform 0.15s ease, color 0.15s ease;
 }
 
 #close-panel:hover {
-  color: #1e293b;
+  color: var(--primary);
   transform: scale(1.1);
 }
 
+/* Contenu du panneau */
 #panel-content {
-  margin-top: 40px;
-  text-align: left;
-<<<<<<< HEAD
-=======
+  margin-top: 32px;
+  color: #0f172a;
   font-size: 0.95rem;
   line-height: 1.7;
-  color: #1e293b;
 }
 
-/* Titre, sous-titre, etc. (si ton PHP génère des h2 / h3) */
 #panel-content h1,
 #panel-content h2,
 #panel-content h3 {
   margin-bottom: 0.4rem;
-  color: #0077b6;
+  color: var(--primary);
   font-weight: 700;
 }
 
 #panel-content p {
   margin-bottom: 0.35rem;
-  color: #1e293b;
+  color: #0f172a;
 }
 
 #panel-content strong {
-  color: #64748b;
+  color: #0f172a;
   font-weight: 600;
 }
 
-/* Pour les listes éventuelles dans le panel */
+/* Liste dans le panel (types d’établissements, etc.) */
 #panel-content ul {
   list-style: none;
   padding-left: 0;
@@ -809,18 +811,20 @@ footer p {
 }
 
 #panel-content ul li {
-  padding: 0.35rem 0;
-  margin-left: 0.5rem;
-  border: none;
+  padding: 0.25rem 0;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.6);
 }
 
-/* Variante pour mettre en avant certains chiffres (taux, etc.) */
-#panel-content .important {
-  color: #0077b6;
-  font-weight: 700;
+#panel-content ul li:last-child {
+  border-bottom: none;
 }
 
-/* Mobile : le panneau prend tout l'écran pour rester lisible */
+/* Pour les puces type "• ..." générées par PHP */
+#panel-content p::marker {
+  content: "";
+}
+
+/* Mobile : le panneau prend tout l'écran */
 @media (max-width: 768px) {
   .side-panel {
     right: -100%;
@@ -830,5 +834,4 @@ footer p {
   .side-panel.open {
     right: 0;
   }
->>>>>>> e2dc5f5 (Mise à jour du style.css)
 }
