@@ -253,7 +253,7 @@ try {
     </main>
 
     <footer>
-        <p>&copy; 2025 Départ(ement). Tous droits réservés.</p>
+        <p>&copy; 2025 Départ(ement). Tous droits réservés. | Projet réalisé par des étudiantes de l'Université Paul Valéry</p>
     </footer>
 
     <script>
