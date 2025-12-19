@@ -1,4 +1,8 @@
 <?php
+
+require_once __DIR__ . '/bd.php';
+
+
 if (!isset($_POST['code_dep'])) {
     echo "<p>Code département absent.</p>";
     exit;
@@ -6,9 +10,17 @@ if (!isset($_POST['code_dep'])) {
 
 $code_dep = $_POST['code_dep'];
 
+// Sécurité : on n'accepte qu'un entier
+if (!preg_match('/^\d+$/', $code_dep)) {
+    echo "<p>Code département invalide.</p>";
+    exit;
+}
+
+$code_dep = (int)$code_dep;
+
 try {
-    $conn = new PDO('mysql:host=localhost;dbname=depart_ement;charset=utf8', 'root', 'root');
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Connexion multi-config
+    $conn = getBD();
 
     /* -------------------------
        TABLE : departement
@@ -47,23 +59,21 @@ try {
        SALAIRE MOYEN
     ------------------------- */
     $salaire_moyen = null;
-    if (!empty($d['montant_salarie']) && !empty($d['nbr_foyer_salarie']) && $d['nbr_foyer_salarie'] > 0) {
+    if (
+        !empty($d['montant_salarie']) &&
+        !empty($d['nbr_foyer_salarie']) &&
+        (int)$d['nbr_foyer_salarie'] > 0
+    ) {
         $salaire_moyen = $d['montant_salarie'] / $d['nbr_foyer_salarie'];
     }
 
-    /* -------------------------------------------------------
-       ENSEIGNEMENT SUPÉRIEUR – Comptage par type
-       TABLE : eta_superieur
-       Champ : `type d'etablissement`
-    -------------------------------------------------------- */
-    $code_dep_int = (int)$code_dep;
-
+    
     $sql_eta_sup = "
         SELECT 
             `type d'etablissement` AS type,
             COUNT(*) AS nb
         FROM eta_superieur
-        WHERE code_dep = $code_dep_int
+        WHERE code_dep = $code_dep
         GROUP BY `type d'etablissement`
         ORDER BY nb DESC
     ";
@@ -72,44 +82,51 @@ try {
     $eta_list = $eta_sup_stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (Exception $e) {
-    echo "<p>Erreur : " . $e->getMessage() . "</p>";
+    echo "<p>Erreur : " . htmlspecialchars($e->getMessage()) . "</p>";
     exit;
 }
 ?>
 
-<h2><?= $d['nom_dep'] ?></h2>
+<!-- ========================
+     CONTENU HTML RENVOYÉ AU PANEL
+     ======================== -->
 
-<p><strong>📍 Région :</strong> <?= $region_nom ?></p>
-<p><strong>🕵️ Population :</strong> <?= $d['nbr_hab'] ?> habitants</p>
-<p><strong>🏙️ Densité :</strong> <?= $d['densite'] ?> hab/km²</p>
-<p><strong>📉 Taux de chômage :</strong> <?= $d['taux_chomage'] ?>%</p>
-<p><strong>📊 Taux de pauvreté :</strong> <?= $d['taux_pauvrete'] ?>%</p>
+<h2><?= htmlspecialchars($d['nom_dep']) ?></h2>
+
+<p><strong>📍 Région :</strong> <?= htmlspecialchars($region_nom ?: "—") ?></p>
+<p><strong>🕵️ Population :</strong> <?= number_format($d['nbr_hab'], 0, ',', ' ') ?> habitants</p>
+<p><strong>🏙️ Densité :</strong> <?= number_format($d['densite'], 0, ',', ' ') ?> hab/km²</p>
+<p><strong>📉 Taux de chômage :</strong> <?= htmlspecialchars($d['taux_chomage']) ?>%</p>
+<p><strong>📊 Taux de pauvreté :</strong> <?= htmlspecialchars($d['taux_pauvrete']) ?>%</p>
 
 <?php if ($salaire_moyen !== null): ?>
-<p><strong>💰 Salaire moyen :</strong> 
+<p><strong>💰 Salaire moyen :</strong>
    <?= number_format($salaire_moyen, 0, ',', ' ') ?> € / foyer salarié / an
 </p>
 <?php endif; ?>
 
 <?php if ($l): ?>
 <p><strong>🏠 Logements :</strong>
-   <?= $l['nbr_log'] ?> logements  
-   (sociaux : <?= $l['taux_log_sociaux'] ?>%, individuels : <?= $l['taux_log_ind'] ?>%)
+   <?= number_format($l['nbr_log'], 0, ',', ' ') ?> logements  
+   (sociaux : <?= htmlspecialchars($l['taux_log_sociaux']) ?>%,
+    individuels : <?= htmlspecialchars($l['taux_log_ind']) ?>%)
 </p>
 <?php endif; ?>
 
 <?php if ($e): ?>
 <p><strong>🎭 Établissements culturels :</strong>
-   <?= $e['nbr_t_eta'] ?> total
-   (<?= $e['nbr_eta_2018'] ?> en 2018)
+   <?= number_format($e['nbr_t_eta'], 0, ',', ' ') ?> total
+   (<?= number_format($e['nbr_eta_2018'], 0, ',', ' ') ?> en 2018)
 </p>
 <?php endif; ?>
 
 <?php if (!empty($eta_list)): ?>
-    <p><strong>🎓 Enseignement supérieur :</strong></p>
-    <ul>
-        <?php foreach ($eta_list as $et): ?>
-            <li>— <?= $et['nb'] ?> <?= $et['type'] ?></li>
-        <?php endforeach; ?>
-    </ul>
+<p><strong>🎓 Enseignement supérieur :</strong></p>
+<ul>
+    <?php foreach ($eta_list as $et): ?>
+        <li>— <?= (int)$et['nb'] ?> <?= htmlspecialchars($et['type']) ?></li>
+    <?php endforeach; ?>
+</ul>
+<?php else: ?>
+<p><strong>🎓 Enseignement supérieur :</strong> —</p>
 <?php endif; ?>

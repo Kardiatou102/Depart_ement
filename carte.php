@@ -50,7 +50,6 @@
     <button id="close-panel" class="panel-close" aria-label="Fermer">×</button>
     <div class="panel-title">
       <span class="panel-kicker">Département</span>
-      <h2 class="panel-h2">Détails</h2>
     </div>
   </div>
 
